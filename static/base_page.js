@@ -18,7 +18,10 @@ $(function() {
     var item_list_template = _.template(
         $("script#item_list_template").html()
     );
-    $("div#container").append(item_list_template({}));
+    var list_params = {
+        items: items
+    };
+    $("div#container").append(item_list_template(list_params));
 
     $(document).on('click', 'button#add_item_submit', function (e) {
         var obj = serialize_object("form#item_add_form");
