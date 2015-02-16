@@ -15,10 +15,10 @@ function validate_item(json) {
 var items = [];
 
 $(function() {
-    var item_add_template = _.template(
-        $("script#item_add_template").html()
+    var item_list_template = _.template(
+        $("script#item_list_template").html()
     );
-    $("div#container").after(item_add_template({}));
+    $("div#container").append(item_list_template({}));
 
     $(document).on('click', 'button#add_item_submit', function (e) {
         var obj = serialize_object("form#item_add_form");
