@@ -1,0 +1,135 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>ProfBud Template Generator</title>
+</head>
+<body>
+<div id="container">
+    tmp
+</div>
+</body>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"></script>
+
+<script src="static/base_page.js"></script>
+
+<script id="item_list_template" type="text/template" class="template">
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="headingOne">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              Collapsible Group Item #1
+            </a>
+          </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+</script>
+
+<script id="item_add_template" type="text/template" class="template">
+<form id="item_add_form" class="form-horizontal">
+  <div class="form-group">
+    <label for="item_id" class="col-sm-2 control-label">Id</label>
+    <div class="col-sm-10">
+      <input name="item_id" type="text" class="form-control" id="item_id" placeholder="Item Id">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="item_buy_buyout" class="col-sm-2 control-label">Buy: Buyout</label>
+    <div class="col-sm-10">
+      <input name="buy.buyout" type="text" class="form-control" id="item_buy_buyout" placeholder="1g1s1c">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="item_buy_amount" class="col-sm-2 control-label">Buy: Amount</label>
+    <div class="col-sm-10">
+      <input name="buy.amount" type="text" class="form-control" id="item_buy_amount" placeholder="5">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="item_buy_additive" class="col-sm-2 control-label">Buy: Additive?</label>
+    <div class="col-sm-10">
+      <input name="buy.additive" type="checkbox">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="item_sell_min_buyout" class="col-sm-2 control-label">Sell: Min Buyout</label>
+    <div class="col-sm-10">
+      <input name="sell.min_buyout" type="text" class="form-control" id="item_sell_min_buyout" placeholder="1g1s1c">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="item_sell_max_buyout" class="col-sm-2 control-label">Sell: Max Buyout</label>
+    <div class="col-sm-10">
+      <input name="sell.max_buyout" type="text" class="form-control" id="item_sell_max_buyout" placeholder="1g1s1c">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="item_sell_runtime" class="col-sm-2 control-label">Sell: Run Time</label>
+    <div class="col-sm-10">
+      <input name="sell.runtime" type="text" class="form-control" id="item_sell_runtime" placeholder="_12_Hours">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="item_sell_stack_size" class="col-sm-2 control-label">Sell: Stack Size</label>
+    <div class="col-sm-10">
+      <input name="sell.stack_size" type="text" class="form-control" id="item_sell_stack_size" placeholder="5">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="item_sell_ignore_stacks_below" class="col-sm-2 control-label">Sell: Ignore Stacks Below</label>
+    <div class="col-sm-10">
+      <input name="sell.ignore_stacks_below" type="text" class="form-control" id="item_sell_ignore_stacks_below" placeholder="1">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="item_sell_amount" class="col-sm-2 control-label">Sell: Amount</label>
+    <div class="col-sm-10">
+      <input name="sell.amount" type="text" class="form-control" id="item_sell_amount" placeholder="5">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="item_sell_bid_percent" class="col-sm-2 control-label">Sell: Bid Percent</label>
+    <div class="col-sm-10">
+      <input name="sell.bid_percent" type="text" class="form-control" id="item_sell_bid_percent" placeholder="90">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="item_sell_undercut_percent" class="col-sm-2 control-label">Sell: Undercut Percent</label>
+    <div class="col-sm-10">
+      <input name="sell.undercut_percent" type="text" class="form-control" id="item_sell_undercut_percent" placeholder=".01">
+    </div>
+  </div>
+
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" id="add_item_submit" class="btn btn-default">Add Item</button>
+    </div>
+  </div>
+</form>
+</script>
+
+<script id="item_row_template" type="text/template" class="template">
+</script>
+
+</html>
