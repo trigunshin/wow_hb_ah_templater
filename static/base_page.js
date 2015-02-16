@@ -28,7 +28,10 @@ $(function() {
         var validated = validate_item(obj);
         console.log(obj);
         console.log(validated);
-        if(validated) items.push(obj);
+        if(validated) {
+            items.push(obj);
+            
+        }
         return false;
     });
 });
