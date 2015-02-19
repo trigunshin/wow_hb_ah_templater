@@ -38,14 +38,13 @@ $(function() {
     // */
 
 
-
-
-
-
-
     var Item = Backbone.Model.extend({
         idAttribute: '_id',
         urlRoot: "",
+        /*
+        schema: {
+            item_id: 'Text'
+        //}/*/
         schema: {
             item_id: 'Text',
             buy: {
@@ -64,16 +63,11 @@ $(function() {
                 undercut_percent: 'Text'
             }
         }
+        //*/
     });
     var Items = Backbone.Collection.extend({
         model: Item,
         url: ""
-    });
-    var ItemDataView = Backbone.Marionette.ItemView.extend({
-        initialize: function() {
-        },
-        tagName: "div",
-        template: "#item_data_template"
     });
     var ItemInfoView = Backbone.Marionette.ItemView.extend({
         initialize: function() {
@@ -90,30 +84,41 @@ $(function() {
             this.model.destroy();
         }
     });
-
-    /*AngryCatsView = Backbone.Marionette.CompositeView.extend({
-      tagName: "table",
-      id: "angry_cats",
-      className: "table-striped table-bordered",
-      template: "#angry_cats-template",
-      itemView: AngryCatView,
-
-      appendHtml: function(collectionView, itemView){
-        collectionView.$("tbody").append(itemView.el);
-      }
+    var ItemsView = Backbone.Marionette.CollectionView.extend({
+        initialize: function() {
+        },
+        tagName: "div",
+        childView: ItemInfoView,
+        template: "#item_data_template"
     });
-*/
-    var items = new Items([{item_id: 'abc123'}]);
+
+
+    var items = new Items([
+        {
+            item_id: 'abc123',
+            buy: {
+                buyout: '1g1s1c'
+            }
+        },
+        {
+            item_id: 'test',
+            buy: {
+                buyout: '1g1s1c'
+            }
+        }
+    ]);
     var MyApp = new Backbone.Marionette.Application();
     MyApp.addRegions({
       mainRegion: "#content"
     });
+
     MyApp.addInitializer(function(options){
-      var itemInfoView = new ItemInfoView({
+      var itemsView = new ItemsView({
         collection: options.items
       });
-      MyApp.mainRegion.show(itemInfoView);
+      MyApp.mainRegion.show(itemsView);
     });
+
     MyApp.start({items: items});
 });
 
