@@ -12,6 +12,7 @@
 </head>
 <body>
 <div id="container">
+  <div id="content"></div>
 </div>
 </body>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -19,12 +20,19 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
 
-<script src="https://raw.githubusercontent.com/marionettejs/backbone.wreqr/master/lib/backbone.wreqr.min.js"></script>
-<script src="https://raw.githubusercontent.com/marionettejs/backbone.babysitter/master/lib/backbone.babysitter.min.js"></script>
-<script src="http://marionettejs.com/downloads/core/backbone.marionette.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
+<script src="static/backbone.wreqr.min.js"></script>
+<script src="static/backbone.babysitter.min.js"></script>
+<script src="static/backbone.marionette.min.js"></script>
 
 
 <script src="static/base_page.js"></script>
+<script type="text/template" id="item_data_template">
+    <div id="item-data"></div>
+</script>
+<script id="item_info_template" type="text/template" class="template">
+<div><%= item_id ></div>
+</script>
 
 <script id="item_list_template" type="text/template" class="template">
 <div class="panel-group" id="item_accordion" role="tablist" aria-multiselectable="true">
