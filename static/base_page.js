@@ -31,11 +31,6 @@ $(function() {
             sell_amount: 'Text',
             sell_bid_percent: 'Text',
             sell_undercut_percent: 'Text'
-        },
-        validate: function(attrs, options) {
-            //console.log(attrs);
-            //console.log("validating b.addi: "+attrs.buy_additive);
-            //console.log("validating b.addi: "+attrs.buy_additive);
         }
     });
     var Items = Backbone.Collection.extend({
