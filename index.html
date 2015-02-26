@@ -56,9 +56,10 @@
 </script>
 
 <script id="item_info_template" type="text/template" class="template">
+<div class="panel panel-default">
   <div class="panel-heading" role="tab" id="heading_<%= item_id %>">
     <h4 class="panel-title">
-      <a data-toggle="collapse" data-parent="#item_accordion" href="#collapse_<%= item_id %>" aria-expanded="true" aria-controls="collapse_<%= item_id %>">
+      <a data-toggle="collapse" data-parent="#item_list_accordion" href="#collapse_<%= item_id %>" aria-expanded="true" aria-controls="collapse_<%= item_id %>">
         <%= item_id %>
       </a>
     </h4>
@@ -81,6 +82,7 @@
       </div>
     </div>
   </div>
+</div>
 </script>
 
 <script id="item_add_template" type="text/template" class="template">
