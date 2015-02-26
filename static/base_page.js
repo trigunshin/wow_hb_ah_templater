@@ -62,15 +62,36 @@ $(function() {
         template: "#item_data_template",
     });
     var CreateItemView = Backbone.Marionette.ItemView.extend({
-        initialize: function(starting_items) {},
+        initialize: function(starting_items) {
+            this.currency_regex = /(\d+[Gg])?(\d{1,2}[Ss])?(\d{1,2}[Cc])?/;
+            var validate_keys = _.keys(new Item().schema);
+            // don't validate boolean field
+            this.validate_keys = _.filter(validate_keys, function(k) {return k!=='buy_additive';});
+        },
         template: "#item_add_template",
         tagName: "div",
         events: {
             'click button#add_item_submit': 'add_item'
         },
+        field_is_not_blank: function(attributes, field) {
+            return (attributes[field] && attributes[field].length > 0);
+        },
+        show_failed_validation: function(field_id) {
+            $('div#'+field_id).addClass('has-error');
+        },
         validate_item: function(item) {
+            // for each field, check that the attributes value isn't blank
+            //var greediest_match = item.attributes.buy_buyout.match(this.currency_regex);
+            //console.log(greediest_match[0]);
 
-            return true;
+            // clear prior validation
+            _.each(this.validate_keys, function(key) {$('div#'+key).removeClass('has-error');});
+
+            var not_blank = _.partial(this.field_is_not_blank, item.attributes, _);
+            var failed_fields = _.reject(this.validate_keys, not_blank);
+            _.each(failed_fields, this.show_failed_validation);
+
+            return failed_fields.length === 0;
         },
         add_item: function(e) {
             var form_data = serialize_object('form#item_add_form');
@@ -82,7 +103,6 @@ $(function() {
             }
 
             var cur_item = new Item(form_data);
-            cur_item.isValid();
             if(this.validate_item(cur_item)) {
                 items.push(cur_item);
             }
