@@ -30,7 +30,11 @@ $(function() {
             sell_ignore_stacks_below: 'Text',
             sell_amount: 'Text',
             sell_bid_percent: 'Text',
-            sell_undercut_percent: 'Text'
+            sell_undercut_percent: 'Text',
+
+            personal_withdraw_threshold: 'Text',
+            personal_deposit_threshold: 'Text'
+
         }
     });
     var Items = Backbone.Collection.extend({
@@ -63,10 +67,31 @@ $(function() {
     });
 
     var ItemOutputView = Backbone.Marionette.ItemView.extend({
-        initialize: function() {},
+        initialize: function() {
+            var that = this;
+            $.ajax({
+                url: 'static/base_template.js',
+                method: 'GET',
+                contentType: 'text',
+                mimeType: 'text/plain; charset=x-user-defined',
+                success: function (data) {
+                    that.compiled_template = _.template(data);
+                }
+            });
+        },
         template: "#item_output_template",
         tagName: "div",
-        events: {}
+        events: {
+            'click button#btn_output': 'output_items'
+        },
+        output_items: function(e) {
+            console.log(this.collection.toJSON());
+            for(var item in this.collection.toJSON()) {
+                console.log(item);
+            }
+            var compiled = this.compiled_template({items:this.collection.toJSON()});
+            $("textarea#template_output_area").text(compiled);
+        }
     });
 
     var CreateItemView = Backbone.Marionette.ItemView.extend({
@@ -131,7 +156,10 @@ $(function() {
         sell_ignore_stacks_below: 'sell_ignore_stacks_below',
         sell_amount: 'sell_amount',
         sell_bid_percent: 'sell_bid_percent',
-        sell_undercut_percent: 'sell_undercut_percent'
+        sell_undercut_percent: 'sell_undercut_percent',
+
+        personal_deposit_threshold: '200',
+        personal_withdraw_threshold: '0'
     }]);
     var MyApp = new Backbone.Marionette.Application();
     MyApp.addRegions({
@@ -149,23 +177,11 @@ $(function() {
       var createView = new CreateItemView();
       MyApp.item_add_form.show(createView);
 
-      var outputView = new ItemOutputView();
+      var outputView = new ItemOutputView({
+        collection: options.items
+      });
       MyApp.item_output.show(outputView);
     });
 
     MyApp.start({items: items});
 });
-
-/*
-var base_template_info;
-    $.ajax({
-        url: 'static/base_template.js',
-        method: 'GET',
-        contentType: 'text',
-        mimeType: 'text/plain; charset=x-user-defined',
-        success: function (data) {
-            base_template_info = data;
-        }
-    });
-
-//*/
