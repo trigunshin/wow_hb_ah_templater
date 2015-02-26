@@ -52,7 +52,7 @@ $(function() {
     });
     var ItemsView = Backbone.Marionette.CompositeView.extend({
         tagName: "div",
-        id: 'item_accordion',
+        id: 'item_list_accordion',
         className: 'panel-group',
         attributes: {
             'role': 'tablist',
