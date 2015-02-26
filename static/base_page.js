@@ -61,6 +61,14 @@ $(function() {
         childView: ItemInfoView,
         template: "#item_data_template",
     });
+
+    var ItemOutputView = Backbone.Marionette.ItemView.extend({
+        initialize: function() {},
+        template: "#item_output_template",
+        tagName: "div",
+        events: {}
+    });
+
     var CreateItemView = Backbone.Marionette.ItemView.extend({
         initialize: function(starting_items) {
             this.currency_regex = /(\d+[Gg])?(\d{1,2}[Ss])?(\d{1,2}[Cc])?/;
@@ -127,6 +135,7 @@ $(function() {
     }]);
     var MyApp = new Backbone.Marionette.Application();
     MyApp.addRegions({
+      item_output: "#item_output_anchor",
       item_list: "#item_list_anchor",
       item_add_form: '#item_add_form_anchor'
     });
@@ -139,6 +148,9 @@ $(function() {
 
       var createView = new CreateItemView();
       MyApp.item_add_form.show(createView);
+
+      var outputView = new ItemOutputView();
+      MyApp.item_output.show(outputView);
     });
 
     MyApp.start({items: items});

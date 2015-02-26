@@ -12,6 +12,7 @@
 </head>
 <body>
 <div id="container">
+  <div id="item_output_anchor"></div>
   <div id="item_add_form_anchor"></div>
   <div id="item_list_anchor"></div>
 </div>
@@ -28,6 +29,29 @@
 
 
 <script src="static/base_page.js"></script>
+
+<script id="item_output_template" type="text/template" class="template">
+<div class="panel-group" id="output_accordion" role="tablist" aria-multiselectable="true">
+    <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="outputHeading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#output_accordion" href="#outputCollapse" aria-expanded="true" aria-controls="collapseOne">
+              Output
+            </a>
+          </h4>
+        </div>
+        <div id="outputCollapse" class="panel-collapse collapse" role="tabpanel" aria-labelledby="outputHeading">
+          <div class="panel-body">
+            <textarea class="form-control" rows="1" placeholder="Output goes here"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</script>
+
 <script id="item_data_template" type="text/template">
 </script>
 
