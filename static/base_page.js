@@ -82,15 +82,22 @@ $(function() {
         template: "#item_output_template",
         tagName: "div",
         events: {
-            'click button#btn_output': 'output_items'
+            'click button#btn_output': 'output_items',
+            'click button#btn_output_json': 'output_items_json',
+            'click button#btn_input_json': 'input_items_json'
         },
         output_items: function(e) {
-            console.log(this.collection.toJSON());
-            for(var item in this.collection.toJSON()) {
-                console.log(item);
-            }
             var compiled = this.compiled_template({items:this.collection.toJSON()});
             $("textarea#template_output_area").text(compiled);
+        },
+        output_items_json: function(e) {
+            $("textarea#json_output_area").text(JSON.stringify(this.collection));
+        },
+        input_items_json: function(e) {
+            var input = $("textarea#json_input_area").val();
+            var json = eval(input);
+            var parsed = this.collection.parse(json);
+            this.collection.reset(parsed);
         }
     });
 
