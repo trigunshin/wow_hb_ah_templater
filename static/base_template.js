@@ -123,8 +123,9 @@
       <CallSubRoutine SubRoutineName="GoToAH" />
       <Custom Code="AHBuddyLog(&quot;Scanning for auctions to buy.&quot;);" />
       <If Condition="(int)Me.Gold &gt;= (int)Settings[&quot;Buyout Threshold&quot;]" IgnoreCanRun="False">
-        <% for(var item in items) { %>
-        <BuyItemFromAH ItemListType="Item" ItemID="<%= item.id %>" MaxBuyout="<%= item.ahbuy.buyout %>" Amount="<%= item.ahbuy.amount %>" BuyAdditively="<%= item.ahbuy.additive %>" AutoFindAh="True" BidOnItem="False" Location="0,0,0" />
+        <% for(var i=0,iLen=items.length;i<iLen;i++) { %>
+        <% var item = items[i]; %>
+        <BuyItemFromAH ItemListType="Item" ItemID="<%= item.item_id %>" MaxBuyout="<%= item.buy_buyout %>" Amount="<%= item.buy_amount %>" BuyAdditively="<%= item.buy_additive %>" AutoFindAh="True" BidOnItem="False" Location="0,0,0" />
         <% } %>
       </If>
       <If Condition="(int)Me.Gold &lt; (int)Settings[&quot;Buyout Threshold&quot;]" IgnoreCanRun="True">
@@ -137,8 +138,9 @@
       <Custom Code="AHBuddyLog(&quot;Posting items to the AH.&quot;);" />
       <CallSubRoutine SubRoutineName="GoToAH" />
       <StackItems />
-      <% for(var item in items) { %>
-        <SellItemOnAH Category="None" SubCategoryType="" SubCategory="None" UseCategory="False" RunTime="<%= item.sell.run_time %>" AmountType="Amount" ItemID="<%= item.id %>" MinBuyout="<%= item.sell.min_buyout %>" MaxBuyout="<%= item.sell.max_buyout %>" StackSize="<%= item.sell.stack_size %>" IgnoreStackSizeBelow="<%= item.sell.ignore_stacks_below %>" Amount="<%= item.sell.amount %>" BidPrecent="<%= item.sell.bid_percent %>" UndercutPrecent="<%= item.sell.undercut_percent %>" AutoFindAh="True" PostPartialStacks="False" PostIfBelowMinBuyout="False" Location="0,0,0" />
+      <% for(var i=0,iLen=items.length;i<iLen;i++) { %>
+        <% var item = items[i]; %>
+        <SellItemOnAH Category="None" SubCategoryType="" SubCategory="None" UseCategory="False" RunTime="<%= item.sell_run_time %>" AmountType="Amount" ItemID="<%= item.item_id %>" MinBuyout="<%= item.sell_min_buyout %>" MaxBuyout="<%= item.sell_max_buyout %>" StackSize="<%= item.sell_stack_size %>" IgnoreStackSizeBelow="<%= item.sell_ignore_stacks_below %>" Amount="<%= item.sell_amount %>" BidPrecent="<%= item.sell_bid_percent %>" UndercutPrecent="<%= item.sell_undercut_percent %>" AutoFindAh="True" PostPartialStacks="False" PostIfBelowMinBuyout="False" Location="0,0,0" />
         <% } %>
       <Custom Code="mailCounter++;" />
     </If>
@@ -160,9 +162,10 @@
     </If>
     -->
     <If Condition="((bool)Settings[&quot;Deposit to Personal Bank&quot;])" IgnoreCanRun="True">
-      <% for(var item in items) { %>
-      <If Condition="(InBagItemCount(<%= item.id %>) + OnAhCount(<%= item.id %>)) &gt; <%= item.bank.threshold %>" IgnoreCanRun="True">
-        <PutItemInBank Category="None" SubCategoryType="None" SubCategory="None" Deposit="Amount" UseCategory="False" Bank="Personal" ItemID="<%= item.id %>" GuildTab="0" NpcEntry="0" Amount="(InBagItemCount(<%= item.id %>) + OnAhCount(<%= item.id %>)) - <%= item.bank.threshold %>" AutoFindBank="True" Location="0,0,0" />
+      <% for(var i=0,iLen=items.length;i<iLen;i++) { %>
+        <% var item = items[i]; %>
+      <If Condition="(InBagItemCount(<%= item.item_id %>) + OnAhCount(<%= item.item_id %>)) &gt; <%= item.personal_deposit_threshold %>" IgnoreCanRun="True">
+        <PutItemInBank Category="None" SubCategoryType="None" SubCategory="None" Deposit="Amount" UseCategory="False" Bank="Personal" ItemID="<%= item.item_id %>" GuildTab="0" NpcEntry="0" Amount="(InBagItemCount(<%= item.item_id %>) + OnAhCount(<%= item.item_id %>)) - <%= item.personal_deposit_threshold %>" AutoFindBank="True" Location="0,0,0" />
       </If>
       <% } %>
     </If>
@@ -177,9 +180,10 @@
     </If>
   -->
     <If Condition="((bool)Settings[&quot;Withdraw from Personal Bank&quot;]) &amp;&amp; !Me.NormalBagsFull" IgnoreCanRun="True">
-      <% for(var item in items) { %>
-      <If Condition="(InBagItemCount(<%= item.id %>) + OnAhCount(<%= item.id %>)) &lt; <%= item.bank.threshold %> &amp;&amp; InBankCount(<%= item.id %>) &gt; 0" IgnoreCanRun="True">
-        <GetItemfromBank Category="None" SubCategoryType="None" SubCategory="None" Withdraw="Amount" Bank="Personal" MinFreeBagSlots="0" GetItemfromBankType="SpecificItem" ItemID="<%= item.id %>" NpcEntry="0" Amount="200 - OnAhCount(<%= item.id %>)" AutoFindBank="True" WithdrawAdditively="False" Location="0,0,0" />
+      <% for(var i=0,iLen=items.length;i<iLen;i++) { %>
+        <% var item = items[i]; %>
+      <If Condition="(InBagItemCount(<%= item.item_id %>) + OnAhCount(<%= item.item_id %>)) &lt; <%= item.personal_withdraw_threshold %> &amp;&amp; InBankCount(<%= item.item_id %>) &gt; 0" IgnoreCanRun="True">
+        <GetItemfromBank Category="None" SubCategoryType="None" SubCategory="None" Withdraw="Amount" Bank="Personal" MinFreeBagSlots="0" GetItemfromBankType="SpecificItem" ItemID="<%= item.item_id %>" NpcEntry="0" Amount="200 - OnAhCount(<%= item.item_id %>)" AutoFindBank="True" WithdrawAdditively="False" Location="0,0,0" />
       </If>
       <% } %>
     </If>
