@@ -53,7 +53,7 @@ $(function() {
     var ItemsView = Backbone.Marionette.CompositeView.extend({
         tagName: "div",
         id: 'item_accordion',
-        className: 'panel-group wat',
+        className: 'panel-group',
         attributes: {
             'role': 'tablist',
             'aria-multiselectable': 'true'
